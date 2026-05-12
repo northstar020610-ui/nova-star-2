@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova-Star | Creativitate, Vindecare și Comunitate</title>
+    <link rel="icon" type="image/png" href="Images/Nova-Star.png">
     <style>
         * {
             margin: 0;
@@ -556,6 +557,38 @@
                 el.classList.add('visible');
             });
         }, 100);
+
+        // Sunete la hover/click (Web Audio API)
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playHover() {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(600, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+            g.gain.setValueAtTime(0.06, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+            o.start(); o.stop(ctx.currentTime + 0.12);
+        }
+
+        function playClick() {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(900, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.15);
+            g.gain.setValueAtTime(0.1, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+            o.start(); o.stop(ctx.currentTime + 0.18);
+        }
+
+        document.querySelectorAll('.btn, .card, nav a').forEach(el => {
+            el.addEventListener('mouseenter', playHover);
+            el.addEventListener('click', playClick);
+        });
     </script>
 
 </body>
