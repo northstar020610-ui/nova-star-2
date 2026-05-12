@@ -791,6 +791,32 @@
             document.getElementById('bookingForm').style.display = 'none';
             document.getElementById('successMsg').style.display = 'block';
         }
+
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        function playHover() {
+            const o = ctx.createOscillator(), g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(600, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.08);
+            g.gain.setValueAtTime(0.06, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+            o.start(); o.stop(ctx.currentTime + 0.12);
+        }
+        function playClick() {
+            const o = ctx.createOscillator(), g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(900, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.15);
+            g.gain.setValueAtTime(0.1, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+            o.start(); o.stop(ctx.currentTime + 0.18);
+        }
+        document.querySelectorAll('.btn, .btn-submit, nav a, .service-card').forEach(el => {
+            el.addEventListener('mouseenter', playHover);
+            el.addEventListener('click', playClick);
+        });
     </script>
 
 </body>

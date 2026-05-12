@@ -570,7 +570,7 @@
         <span class="hero-deco">🔷</span>
         <span class="hero-deco">⚡</span>
         <div class="hero-badge fade-in">NorthStar! Studio</div>
-        <img src="Images/NorthStar!.jpeg" alt="NorthStar! Studio" class="studio-hero-logo fade-in fade-in-delay-1">
+        <img src="Images/NorthStar.jpeg" alt="NorthStar! Studio" class="studio-hero-logo fade-in fade-in-delay-1">
         <h1 class="fade-in fade-in-delay-1">Aducem <span class="highlight">Lumi Digitale</span><br>la Viață</h1>
         <p class="fade-in fade-in-delay-2">De la concept la lansare — creăm jocuri cu mecanici inovatoare, povești captivante și sisteme de combat care redefinesc experiența jucătorilor.</p>
     </section>
@@ -773,6 +773,32 @@
             document.getElementById('contactForm').style.display = 'none';
             document.getElementById('successMsg').style.display = 'block';
         }
+
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        function playHover() {
+            const o = ctx.createOscillator(), g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'sine';
+            o.frequency.setValueAtTime(500, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + 0.08);
+            g.gain.setValueAtTime(0.06, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+            o.start(); o.stop(ctx.currentTime + 0.12);
+        }
+        function playClick() {
+            const o = ctx.createOscillator(), g = ctx.createGain();
+            o.connect(g); g.connect(ctx.destination);
+            o.type = 'square';
+            o.frequency.setValueAtTime(1200, ctx.currentTime);
+            o.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.15);
+            g.gain.setValueAtTime(0.08, ctx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+            o.start(); o.stop(ctx.currentTime + 0.2);
+        }
+        document.querySelectorAll('.btn, nav a, .game-card').forEach(el => {
+            el.addEventListener('mouseenter', playHover);
+            el.addEventListener('click', playClick);
+        });
     </script>
 
 </body>
