@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova-Star | Cabinet de Terapie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9fbfb;
+            color: #333;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-star {
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(79,172,254,0.5));
+        }
+
+        .logo span { color: #4facfe; }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4facfe;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: #4facfe; }
+
+        /* ===== HERO ===== */
+        .therapy-hero {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            padding: 100px 20px 80px;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .therapy-hero::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,105,92,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .therapy-hero-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 24px;
+            object-fit: contain;
+            background: #ffffff;
+            display: block;
+            margin: 0 auto 30px;
+            padding: 10px;
+            border: 3px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 0 8px rgba(178,223,219,0.4), 0 12px 40px rgba(0,77,64,0.2);
+        }
+
+        .therapy-hero h1 {
+            font-size: 3rem;
+            color: #004d40;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .therapy-hero p {
+            font-size: 1.2rem;
+            color: #00695c;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,105,92,0.12);
+            border: 1px solid rgba(0,105,92,0.3);
+            color: #00695c;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        /* ===== SERVICII ===== */
+        .services-section {
+            padding: 80px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #222;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 50px;
+            font-size: 1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid #80cbc4;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            color: #004d40;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* ===== PROCESUL NOSTRU ===== */
+        .process-section {
+            background: #fff;
+            padding: 80px 20px;
+            margin-top: 60px;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .step-number {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e0f2f1, #80cbc4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #004d40;
+            margin: 0 auto 16px;
+        }
+
+        .process-step h3 {
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* ===== FORMULAR PROGRAMARE ===== */
+        #programare {
+            padding: 80px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .booking-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-top: 5px solid #00796b;
+        }
+
+        .booking-card h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #004d40;
+            margin-bottom: 8px;
+        }
+
+        .booking-card .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 36px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #333;
+            background: #fafafa;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #00796b;
+            background: #fff;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00796b, #004d40);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .form-note {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.82rem;
+            margin-top: 14px;
+        }
+
+        .success-msg {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 12px;
+            color: #2e7d32;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid #1e1e1e;
+            padding: 60px 50px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand .logo-footer {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-brand .logo-footer span { color: #4facfe; }
+
+        .footer-brand p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .footer-col ul li a:hover { color: #4facfe; }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #4facfe;
+            border-color: #4facfe;
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-bottom p { color: #444; font-size: 0.85rem; }
+
+        /* ===== ANIMAȚII ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            header { flex-direction: column; gap: 15px; padding: 20px; }
+            .therapy-hero h1 { font-size: 2.2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            footer { padding: 40px 20px 20px; }
+            .booking-card { padding: 36px 24px; }
+        }
+
+        @media (max-width: 500px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            nav ul { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo">
+            <svg class="logo-star" width="36" height="36" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="rgba(79,172,254,0.15)"/><polygon points="20,5 23.5,14.5 34,14.5 25.5,21 28.5,31 20,24.5 11.5,31 14.5,21 6,14.5 16.5,14.5" fill="#4facfe"/></svg>
+            NOVA-<span>STAR</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Acasă</a></li>
+                <li><a href="Terapie.html" class="active">Terapie</a></li>
+                <li><a href="Asociatie.html">Asociație</a></li>
+                <li><a href="Studio.html">Studio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="therapy-hero">
+        <div class="hero-badge fade-in">Cabinet de Terapie</div>
+        <img src="Images/NovaPlay&amp;Learn.png" alt="Nova Play si Learn" class="therapy-hero-logo fade-in fade-in-delay-1">
+        <h1 class="fade-in fade-in-delay-1">Un Spațiu Sigur pentru Mintea Ta</h1>
+        <p class="fade-in fade-in-delay-2">Găsește echilibrul, înțelegerea și suportul de care ai nevoie pentru a depăși obstacolele și a-ți atinge potențialul emoțional.</p>
+    </section>
+
+    <!-- SERVICII -->
+    <section class="services-section" id="servicii">
+        <h2 class="section-title fade-in">Serviciile Noastre</h2>
+        <p class="section-subtitle fade-in">Abordări terapeutice adaptate nevoilor fiecărei persoane</p>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <span class="service-icon">🧠</span>
+                <h3>Terapie Individuală</h3>
+                <p>O abordare personalizată pentru gestionarea anxietății, stresului, depresiei și dezvoltarea autocunoașterii într-un mediu confidențial.</p>
+            </div>
+            <div class="service-card fade-in fade-in-delay-1">
+                <span class="service-icon">💑</span>
+                <h3>Terapie de Cuplu</h3>
+                <p>Suport pentru îmbunătățirea comunicării, rezolvarea conflictelor și reconstruirea intimității în relația de cuplu.</p>
+            </div>
+            <div class="service-card fade-in fade-in-delay-2">
+                <span class="service-icon">🌱</span>
+                <h3>Consiliere Adolescenți</h3>
+                <p>Ghidare specializată pentru provocările specifice vârstei, presiunea socială, stima de sine și orientarea în viață.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESUL NOSTRU -->
+    <section class="process-section">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <h2 class="section-title fade-in">Cum Funcționează</h2>
+            <p class="section-subtitle fade-in">Un proces simplu și transparent</p>
+            <div class="process-grid">
+                <div class="process-step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Programează</h3>
+                    <p>Completează formularul de mai jos sau contactează-ne pentru a stabili o ședință de evaluare.</p>
+                </div>
+                <div class="process-step fade-in fade-in-delay-1">
+                    <div class="step-number">2</div>
+                    <h3>Prima Ședință</h3>
+                    <p>Discutăm despre nevoile tale și stabilim împreună cel mai potrivit plan terapeutic.</p>
+                </div>
+                <div class="process-step fade-in fade-in-delay-2">
+                    <div class="step-number">3</div>
+                    <h3>Terapia</h3>
+                    <p>Ședințe regulate, confidențiale, adaptate ritmului și nevoilor tale individuale.</p>
+                </div>
+                <div class="process-step fade-in fade-in-delay-3">
+                    <div class="step-number">4</div>
+                    <h3>Progres</h3>
+                    <p>Monitorizăm împreună evoluția și ajustăm abordarea pentru rezultate optime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULAR PROGRAMARE -->
+    <section id="programare">
+        <div class="booking-card fade-in">
+            <h2>Programează o Ședință</h2>
+            <p class="subtitle">Primul pas spre echilibru îl faci tu. Noi suntem aici.</p>
+            <form id="bookingForm" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Prenume</label>
+                        <input type="text" placeholder="Prenumele tău" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nume</label>
+                        <input type="text" placeholder="Numele de familie" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="adresa@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" placeholder="07XX XXX XXX">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tip Terapie</label>
+                    <select required>
+                        <option value="" disabled selected>Alege serviciul dorit</option>
+                        <option>Terapie Individuală</option>
+                        <option>Terapie de Cuplu</option>
+                        <option>Consiliere Adolescenți</option>
+                        <option>Ședință de Evaluare</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mesaj (opțional)</label>
+                    <textarea placeholder="Descrie pe scurt ce te-a adus aici sau orice altceva dorești să ne spui..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Trimite Cererea de Programare</button>
+                <p class="form-note">🔒 Datele tale sunt confidențiale. Nu le vom partaja cu nimeni.</p>
+            </form>
+            <div class="success-msg" id="successMsg">
+                ✅ Mulțumim! Cererea ta a fost trimisă. Te vom contacta în cel mai scurt timp.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-footer">NOVA-<span>STAR</span></a>
+                <p>Un ecosistem unic care unește terapia, implicarea comunitară și inovația digitală sub același acoperiș.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook">f</a>
+                    <a href="#" class="social-link" title="Instagram">in</a>
+                    <a href="#" class="social-link" title="YouTube">▶</a>
+                    <a href="#" class="social-link" title="LinkedIn">Li</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Cabinet Terapie</h4>
+                <ul>
+                    <li><a href="Terapie.html">Servicii</a></li>
+                    <li><a href="#programare">Programări</a></li>
+                    <li><a href="#servicii">Terapie Individuală</a></li>
+                    <li><a href="#servicii">Terapie de Cuplu</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Asociație</h4>
+                <ul>
+                    <li><a href="Asociatie.html">Despre noi</a></li>
+                    <li><a href="Asociatie.html#proiecte">Proiecte</a></li>
+                    <li><a href="Asociatie.html#voluntariat">Voluntariat</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Studio</h4>
+                <ul>
+                    <li><a href="Studio.html">Portofoliu</a></li>
+                    <li><a href="Studio.html#devlog">DevLog</a></li>
+                    <li><a href="Studio.html#jocuri">Jocuri</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nova-Star. Toate drepturile rezervate.</p>
+            <p>Construit cu 💙 în România</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        setTimeout(() => {
+            document.querySelectorAll('.therapy-hero .fade-in').forEach(el => el.classList.add('visible'));
+        }, 100);
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

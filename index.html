@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova-Star | Creativitate, Vindecare și Comunitate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0a0a0a;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo span {
+            color: #4facfe;
+        }
+
+        .logo-star {
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 6px rgba(79,172,254,0.5));
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4facfe;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: #4facfe;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: #b3b3b3;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(79, 172, 254, 0.1);
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            color: #4facfe;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        /* ===== CARDS ===== */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 0 50px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border-radius: 24px;
+            padding: 50px 30px;
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 420px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 24px;
+        }
+
+        .card:hover {
+            transform: translateY(-18px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #111;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #111;
+            border: 2px solid #111;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            background-color: #111;
+            color: #fff;
+        }
+
+        .card-therapy {
+            background: linear-gradient(145deg, #e0f2f1 0%, #b2dfdb 100%);
+        }
+
+        .card-ngo {
+            background: linear-gradient(145deg, #fff9c4 0%, #ffe082 100%);
+        }
+
+        .card-gamedev {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid #333;
+        }
+
+        .card-gamedev::before {
+            background: linear-gradient(145deg, rgba(79,172,254,0.05), rgba(0,242,254,0.05));
+        }
+
+        .card-gamedev h2 { color: #4facfe; }
+        .card-gamedev p { color: #ccc; }
+        .card-gamedev .btn { color: #4facfe; border-color: #4facfe; }
+        .card-gamedev .btn:hover { background-color: #4facfe; color: #1a1a2e; }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 60px 50px;
+            background: rgba(255,255,255,0.03);
+            border-top: 1px solid #1e1e1e;
+            border-bottom: 1px solid #1e1e1e;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid #1e1e1e;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-brand .logo {
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #4facfe;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #4facfe;
+            border-color: #4facfe;
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .footer-bottom p {
+            color: #444;
+            font-size: 0.85rem;
+        }
+
+        /* ===== ANIMAȚII ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            .hero h1 { font-size: 2.2rem; }
+            .services-container { padding: 0 20px 60px; }
+            .stats-section { gap: 30px; padding: 40px 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            footer { padding: 40px 20px 20px; }
+        }
+
+        @media (max-width: 500px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            nav ul { gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo">
+            <svg class="logo-star" width="36" height="36" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="20" fill="rgba(79,172,254,0.15)"/><polygon points="20,5 23.5,14.5 34,14.5 25.5,21 28.5,31 20,24.5 11.5,31 14.5,21 6,14.5 16.5,14.5" fill="#4facfe"/></svg>
+            NOVA-<span>STAR</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Acasă</a></li>
+                <li><a href="Terapie.html">Terapie</a></li>
+                <li><a href="Asociatie.html">Asociație</a></li>
+                <li><a href="Studio.html">Studio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge fade-in">Ecosistem Nova-Star</div>
+        <h1 class="fade-in fade-in-delay-1">Unificând <span class="highlight">Creativitatea</span>,<br>Vindecarea și Comunitatea</h1>
+        <p class="fade-in fade-in-delay-2">Locul unde inovația digitală se întâlnește cu echilibrul emoțional și implicarea socială activă.</p>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-section">
+        <div class="stat-item fade-in">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Ramuri Active</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-1">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Dedicare</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-2">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Ecosistem Unic</div>
+        </div>
+    </div>
+
+    <!-- CARDURI PRINCIPALE -->
+    <div class="services-container">
+
+        <a href="Terapie.html" class="card card-therapy fade-in">
+            <div>
+                <span class="card-icon">🧠</span>
+                <h2>Cabinet de Terapie</h2>
+                <p>Regăsește-ți echilibrul mental și emoțional într-un spațiu sigur, ghidat de profesioniști pregătiți să te asculte.</p>
+            </div>
+            <span class="btn">Servicii &amp; Programări</span>
+        </a>
+
+        <a href="Asociatie.html" class="card card-ngo fade-in fade-in-delay-1">
+            <div>
+                <span class="card-icon">🤝</span>
+                <h2>Asociația Noastră</h2>
+                <p>Construim un viitor mai bun împreună. Descoperă proiectele noastre comunitare și află cum te poți implica alături de noi.</p>
+            </div>
+            <span class="btn">Implică-te Acum</span>
+        </a>
+
+        <a href="Studio.html" class="card card-gamedev fade-in fade-in-delay-2">
+            <div>
+                <span class="card-icon">🎮</span>
+                <h2>Studio Game Dev</h2>
+                <p>Aducem lumi digitale la viață. Explorează jocurile noastre, DevLog-ul de development și portofoliul de proiecte creative.</p>
+            </div>
+            <span class="btn">Portofoliu &amp; DevLog</span>
+        </a>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">NOVA-<span>STAR</span></a>
+                <p>Un ecosistem unic care unește terapia, implicarea comunitară și inovația digitală sub același acoperiș.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook">f</a>
+                    <a href="#" class="social-link" title="Instagram">in</a>
+                    <a href="#" class="social-link" title="YouTube">▶</a>
+                    <a href="#" class="social-link" title="LinkedIn">Li</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Cabinet Terapie</h4>
+                <ul>
+                    <li><a href="Terapie.html">Servicii</a></li>
+                    <li><a href="Terapie.html#programare">Programări</a></li>
+                    <li><a href="Terapie.html#servicii">Terapie Individuală</a></li>
+                    <li><a href="Terapie.html#servicii">Terapie de Cuplu</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Asociație</h4>
+                <ul>
+                    <li><a href="Asociatie.html">Despre noi</a></li>
+                    <li><a href="Asociatie.html#proiecte">Proiecte</a></li>
+                    <li><a href="Asociatie.html#voluntariat">Voluntariat</a></li>
+                    <li><a href="Asociatie.html#contact">Donează</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Studio</h4>
+                <ul>
+                    <li><a href="Studio.html">Portofoliu</a></li>
+                    <li><a href="Studio.html#devlog">DevLog</a></li>
+                    <li><a href="Studio.html#jocuri">Jocuri</a></li>
+                    <li><a href="Studio.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nova-Star. Toate drepturile rezervate.</p>
+            <p>Construit cu 💙 în România</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Fade-In Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Trigger hero immediately
+        setTimeout(() => {
+            document.querySelectorAll('.hero .fade-in, .hero-badge').forEach(el => {
+                el.classList.add('visible');
+            });
+        }, 100);
+    </script>
+
+</body>
+</html>
