@@ -3,7 +3,11 @@
     "allow": [
       "Bash(git --version)",
       "Bash(gh --version)",
-      "PowerShell(gh --version)"
+      "PowerShell(gh --version)",
+      "Bash(git checkout *)",
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(gh pr create --base main --head terapie-design-updates --title 'Pagina Terapie: design pentru copii + formular Formspree' --body ' *)"
     ]
   }
 }
